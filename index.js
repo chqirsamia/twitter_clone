@@ -10,14 +10,21 @@ const postRoute = require("./routes/tweets");
 
 dotenv.config();
 
-mongoose.connect(
+/*mongoose.connect(
   process.env.MONGO_URL,
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => {
     console.log("Connected to MongoDB");
   }
-);
-
+);*/
+//mongoose.connect('mongodb+srv://chqirsamia:samia24799@cluster0.fnn2o.mongodb.net/albc_twitter?retryWrites=true&w=majority');
+//mongoose.connect('mongodb://chqirsamia:samia24799@cluster0.fnn2o.mongodb.net/albc_twitter?retryWrites=true&w=majority');
+const uri = 'mongodb+srv://chqirsamia:samia24799@cluster0.fnn2o.mongodb.net/' +
+'albc_twitter?retryWrites=true&w=majority';
+// Prints "MongoServerError: bad auth Authentication failed."
+mongoose.connect(uri, {
+  serverSelectionTimeoutMS: 5000
+}).catch(err => console.log(err.reason));
 //middleware
 app.get("/",(req,res)=>{
     res.send("welcome to home page");
